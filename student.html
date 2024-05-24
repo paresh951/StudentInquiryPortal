@@ -1,0 +1,203 @@
+<script>
+  var system = [
+    ["paresh@gmail.com", "123"],
+    ["vijay@gmail.com", "456"],
+  ];
+
+  var id = 1;
+  var courses = ["Java", "PhP", "JavaScript", "Python"];
+  var nn = true;
+do{
+  var b = parseInt(prompt("1.Visitor\n2.Admin\n3.view\n4.Exit"));
+  switch (b) {
+    
+    case 1:
+      nn = false;
+      var enquiry = parseInt(prompt("Do you want to enquiry?\n1.yes\n2.no"));
+      switch (enquiry) {
+        case 1:
+          var flag = true;
+          do {
+            var nam = prompt("Please enter your name: ");
+
+            var num = prompt("Please enter your number: ");
+
+            var gender = prompt("Please Enter Gener: ");
+            var pan = "pending";
+
+            var message =
+              "Which of these course do you want to inquiry about?\n";
+            for (var i = 0; i < courses.length; i++) {
+              message += i + 1 + "." + courses[i] + "\n";
+            }
+            var course = parseInt(prompt(message));
+
+            var temp = [id++, nam, num, gender, courses[course - 1], pan];
+            system.push(temp);
+            alert(
+              "Your inquiry has been successful. Our Admin Team will shortly get beck to you."
+            );
+            //console.log(system);
+
+            var inquiry = parseInt(
+              prompt("Do you want to do another inquiry?\n1.Yes\n2.no")
+            );
+            if (inquiry == 2) {
+              flag = false;
+              alert("Thanks");
+              break;
+            }
+
+          } while (flag);
+
+        case 2:
+          alert("Dhanyawad");
+
+          break;
+
+        default:
+          alert("please select any number");
+          break;
+      }
+
+    case 2:
+      var email = prompt("Enter email ID: ");
+      var pp = false;
+
+      for (var j = 0; j < system.length; j++) {
+        if (system[j][0] == email) {
+          var pass = prompt("Enter password: ");
+          pp = true;
+          if (system[j][1] == pass) {
+            var mn = parseInt("\n1.Manage inquiry\n2.Manage student\n3.Exit");
+
+            switch (mn) {
+             
+              case 1: // manage inquiry
+              do{
+                var dp = parseInt(
+                  prompt(
+                    "\n1.Pending inquiry\n2.confirm inquiry\n3.rejected inquiry"
+                  )
+                );
+                switch (dp) {
+                  case 1: // Pending inquiry
+                    var user = "";
+                    for (var k = 2; k < system.length; k++) {
+                      user += "ID: " + system[k][0] + "\n";
+                      user += "Name: " + system[k][1] + "\n";
+                      user += "Number: " + system[k][2] + "\n";
+                      user += "Gender: " + system[k][3] + "\n";
+                      user += "Status: Pending" + "\n";
+                      user += "----------------------------" + "\n";
+                    }
+                    alert(user);
+                    var cc = parseInt(
+                      prompt("What do you want to do?\n1.Confirm\n2.reject")
+                    );
+                    switch (cc) {
+                      case 1: // confirm
+                        var id = parseInt(
+                          prompt(
+                            "Enter the ID of the inquiry you want to confirm:"
+                          )
+                        );
+
+                        for (var i = 0; i < system.length; i++) {
+                          if (system[i][0] === id) {
+                            system[i][5] = "Confirmed";
+                            system[i][6] = prompt(
+                              "Please enter the father's name:"
+                            );
+                            alert("Inquiry confirmed successfully!");
+                            break;
+                          }
+                        }
+                        if (i === system.length) {
+                          alert("Inquiry not found!");
+                        }
+                        console.log(system);
+                        break;
+                      case 2: // rejected
+                        var flag = true;
+                        var id = parseInt(
+                          prompt(
+                            "Enter the ID of the inquiry you want to reject:"
+                          )
+                        );
+                        for (let i = 0; i < system.length; i++) {
+                          if (system[i][0] === id) {
+                            system[i][5] = "Rejected";
+                            console.log("Inquiry Rejected!");
+                            flag = false;
+                            break;
+                          }
+                        }
+                        if (flag) {
+                          console.log("Inquiry not found!");
+                        }
+                        console.log(system);
+                        break;
+                    }
+                 
+                  case 2: // Confirmed inquiry
+                    var user = "";
+                    for (var k = 2; k < system.length; k++) {
+                      if (system[k][5] === "Confirmed") {
+                        user += "ID: " + system[k][0] + "\n";
+                        user += "Name: " + system[k][1] + "\n";
+                        user += "Number: " + system[k][2] + "\n";
+                        user += "Gender: " + system[k][3] + "\n";
+                        user += "Course: " + system[k][4] + "\n";
+                        user += "Status: " + system[k][5] + "\n";
+                        user += "----------------------------" + "\n";
+                      }
+                    }
+                    alert(user);
+                    break;
+
+                  case 3: // rejected inquiry
+                    if (system.length == "Rejected") {
+                      console.log(system);
+                    } else {
+                      alert("enter data first");
+                    }
+                    break;
+
+                  default:
+                  alert("Please select a valid option.");
+                }
+              } while (dp !== 1 && dp !== 2 && dp !== 3);
+
+                break;
+
+                break;
+              case 3:
+                console.log("Exit");
+                break;
+              default:
+                console.log("Please select a valid option");
+                break;
+
+              case 2: //Manage student
+
+              case 3: //Exit
+            }
+            break;
+          } else {
+            alert("Incorrect password");
+          }
+          break;
+        }
+      }
+      if (!pp) {
+        alert("Please enter a valid email ID or pass");
+      }
+      break;
+
+    default:
+      alert("Please enter correct value");
+      break;
+  }
+}while(nn)
+</script>
